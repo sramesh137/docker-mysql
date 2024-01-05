@@ -3,8 +3,13 @@
 # Create main_db database
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
 
+# Update replication user password
+mysql  -uroot -p$MYSQL_ROOT_PASSWORD -e "DROP USER '$MYSQL_REPL_USER'@'%';"
+mysql  -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE USER '$MYSQL_REPL_USER'@'%' IDENTIFIED WITH mysql_native_password BY '$MYSQL_REPL_PASSWORD';"
+
 # Create replication user and grant privileges
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MYSQL_REPL_USER'@'%' IDENTIFIED BY '$MYSQL_REPL_PASSWORD';"
+mysql -u root -p$MYSQL_ROOT_PASSWORD -e "ALTER USER '$MYSQL_REPL_USER'@'%' IDENTIFIED WITH mysql_native_password BY '$MYSQL_REPL_PASSWORD';"
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT REPLICATION SLAVE ON *.* TO '$MYSQL_REPL_USER'@'%';"
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
 
@@ -18,4 +23,4 @@ echo "Current Binary Log File: $CURRENT_LOG_FILE"
 echo "Current Binary Log Position: $CURRENT_LOG_POS"
 
 # Save master status to a file for later use in slave configuration
-echo "CHANGE MASTER TO MASTER_HOST='master', MASTER_PORT=3306, MASTER_USER='$MYSQL_REPL_USER', MASTER_PASSWORD='$MYSQL_REPL_PASSWORD', MASTER_LOG_FILE='$CURRENT_LOG_FILE', MASTER_LOG_POS=$CURRENT_LOG_POS;" > master_status.sql
+echo "CHANGE MASTER TO MASTER_HOST='master', MASTER_PORT=3306, MASTER_USER='$MYSQL_REPL_USER', MASTER_PASSWORD='$MYSQL_REPL_PASSWORD', MASTER_LOG_FILE='$CURRENT_LOG_FILE', MASTER_LOG_POS=$CURRENT_LOG_POS;" | tee master_status.sql
