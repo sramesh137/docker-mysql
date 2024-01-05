@@ -1,6 +1,8 @@
 # docker-mysql
 Using docker-compose.yaml creating replication for mysql master - slave1 & slave2
 
+```
+
 project/
 |-- config/
 |   |-- master_config.cnf
@@ -15,6 +17,8 @@ project/
 |-- docker-compose.yaml
 |-- setup-master.sh
 |-- setup-slave.sh
+
+```
 
 Explanation:
 * config/: Directory containing MySQL configuration files.
