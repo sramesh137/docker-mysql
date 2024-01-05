@@ -3,7 +3,7 @@ Using docker-compose.yaml creating replication for mysql master - slave1 & slave
 
 ```
 
-project/
+docker-mysql-project/
 |-- config/
 |   |-- master_config.cnf
 |   |-- slave_config.cnf
