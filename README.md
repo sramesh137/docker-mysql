@@ -72,18 +72,18 @@ Clone the repository:
 4. Access MySQL containers:
    - Master
    ```
-   docker exec -it master_db mysql -uroot -p
+   docker exec -it master mysql -uroot -p
    ```
    - Slaves
    ```
-   docker exec -it slave1_db mysql -uroot -p
-   docker exec -it slave2_db mysql -uroot -p
+   docker exec -it slave1 mysql -uroot -p
+   docker exec -it slave2 mysql -uroot -p
    ```
 5. Monitor replication status:
 
    ```
-   docker exec -it slave1_db mysql -uroot -p -e "SHOW SLAVE STATUS\G"
-   docker exec -it slave2_db mysql -uroot -p -e "SHOW SLAVE STATUS\G"
+   docker exec -it slave1 mysql -uroot -p -e "SHOW SLAVE STATUS\G"
+   docker exec -it slave2 mysql -uroot -p -e "SHOW SLAVE STATUS\G"
    ```
 
 ### Troubleshooting
