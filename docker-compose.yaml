@@ -4,9 +4,10 @@ services:
     container_name: master
     image: mysql:latest
     restart: always
-    env_file: ./env/master.env
+    env_file: 
+      - ./env/master.env
     volumes:
-      - ./config/master_config.cnf:/etc/mysql/conf.d/master_config.cnf
+      - ./config/master_config.cnf:/etc/mysql/conf.d/my.cnf
       - ./data/master:/var/lib/mysql
       - ./setup-master.sh:/docker-entrypoint-initdb.d/setup-master.sh
     ports:
@@ -18,9 +19,10 @@ services:
     container_name: slave1
     image: mysql:latest
     restart: always
-    env_file: ./env/slave.env
+    env_file: 
+      - ./env/slave.env
     volumes:
-      - ./config/slave_config.cnf:/etc/mysql/conf.d/slave_config.cnf
+      - ./config/slave_config1.cnf:/etc/mysql/conf.d/my.cnf
       - ./data/slave1:/var/lib/mysql
       - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
     ports:
@@ -35,9 +37,10 @@ services:
     container_name: slave2
     image: mysql:latest
     restart: always
-    env_file: ./env/slave.env
+    env_file: 
+      - ./env/slave.env
     volumes:
-      - ./config/slave_config.cnf:/etc/mysql/conf.d/slave_config2.cnf
+      - ./config/slave_config2.cnf:/etc/mysql/conf.d/my.cnf
       - ./data/slave2:/var/lib/mysql
       - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
     ports:
