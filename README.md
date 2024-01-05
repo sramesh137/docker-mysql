@@ -11,8 +11,8 @@ This project sets up a MySQL replication environment using Docker Compose. It in
 - Separate environment files for master and slave configurations
 - Docker Compose orchestration for easy deployment
 
+## Project Directory Tree Map Structure
 ```
-
 docker-mysql-project/
 |-- config/
 |   |-- master_config.cnf
@@ -27,19 +27,9 @@ docker-mysql-project/
 |-- docker-compose.yaml
 |-- setup-master.sh
 |-- setup-slave.sh
-
 ```
-## Project Structure
 
-- `docker-compose.yaml`: Main configuration file for Docker Compose.
-- `env/`: Directory containing environment files for master and slave configurations.
-- `config/`: Directory containing MySQL configuration files for master and slave servers.
-- `data/`: Directory containing MySQL data directories for master and two slave servers.
-- `setup-master.sh`: Script for initializing the master server.
-- `setup-slave.sh`: Script for initializing the slave servers.
-
-
-Tree Map Explanation:
+## Tree Map Explanation:
 
 * config/: Directory containing MySQL configuration files.
     * master_config.cnf: Configuration file for the MySQL master.
@@ -59,25 +49,25 @@ Tree Map Explanation:
 
 Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
+   git clone https://github.com/sramesh137/docker-mysql.git
+   cd docker-mysql
    ```
 
 1. Customize environment files:
 
-- Update env/master.env with master configuration.
-- Update env/slave.env with slave configurations.
+   - Update env/master.env with master configuration.
+   - Update env/slave.env with slave configurations.
 
 2. Start the MySQL replication environment:
-```
-docker-compose up -d
-```
+   ```
+   docker-compose up -d
+   ```
 
 3. Check the status and logs:
-```
-docker-compose ps
-docker-compose logs
-```
+   ```
+   docker-compose ps
+   docker-compose logs
+   ```
 
 4. Access MySQL containers:
    - Master
