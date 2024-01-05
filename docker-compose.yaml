@@ -1,0 +1,52 @@
+version: '3'
+services:
+  master_db:
+    container_name: master
+    image: mysql:latest
+    restart: always
+    env_file: ./env/master.env
+    volumes:
+      - ./config/master_config.cnf:/etc/mysql/conf.d/master_config.cnf
+      - ./data/master:/var/lib/mysql
+      - ./setup-master.sh:/docker-entrypoint-initdb.d/setup-master.sh
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql_network
+
+  slave1_db:
+    container_name: slave1
+    image: mysql:latest
+    restart: always
+    env_file: ./env/slave.env
+    volumes:
+      - ./config/slave_config.cnf:/etc/mysql/conf.d/slave_config.cnf
+      - ./data/slave1:/var/lib/mysql
+      - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
+    ports:
+      - "3308:3306"  # Redirecting host port 3308 to container port 3306
+
+    depends_on:
+      - master_db
+    networks:
+      - mysql_network
+
+  slave2_db:
+    container_name: slave2
+    image: mysql:latest
+    restart: always
+    env_file: ./env/slave.env
+    volumes:
+      - ./config/slave_config.cnf:/etc/mysql/conf.d/slave_config2.cnf
+      - ./data/slave2:/var/lib/mysql
+      - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
+    ports:
+      - "3309:3306"  # Redirecting host port 3308 to container port 3306
+    depends_on:
+      - master_db
+    networks:
+      - mysql_network
+
+networks:
+  mysql_network:
+    driver: bridge
