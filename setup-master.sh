@@ -3,13 +3,11 @@
 # Create main_db database
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
 
-# Update replication user password
+# Update replication user password with the mysql_native_password
 mysql  -uroot -p$MYSQL_ROOT_PASSWORD -e "DROP USER '$MYSQL_REPL_USER'@'%';"
 mysql  -uroot -p$MYSQL_ROOT_PASSWORD -e "CREATE USER '$MYSQL_REPL_USER'@'%' IDENTIFIED WITH mysql_native_password BY '$MYSQL_REPL_PASSWORD';"
 
-# Create replication user and grant privileges
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MYSQL_REPL_USER'@'%' IDENTIFIED BY '$MYSQL_REPL_PASSWORD';"
-mysql -u root -p$MYSQL_ROOT_PASSWORD -e "ALTER USER '$MYSQL_REPL_USER'@'%' IDENTIFIED WITH mysql_native_password BY '$MYSQL_REPL_PASSWORD';"
+# Grant privileges
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "GRANT REPLICATION SLAVE ON *.* TO '$MYSQL_REPL_USER'@'%';"
 mysql -u root -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
 
