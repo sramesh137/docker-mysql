@@ -91,4 +91,4 @@ Clone the repository:
 - Review the MySQL documentation for replication troubleshooting: [MySQL Replication Troubleshooting](https://dev.mysql.com/doc/mysql-replication-excerpt/8.0/en/replication-features-errors.html)
 
 ### Contributing
-Feel free to contribute to this project by opening issues or pull requests. Your feedback and contributions are welcome!
+Feel free to contribute to this project by opening issues or pull requests.
