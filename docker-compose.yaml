@@ -10,6 +10,7 @@ services:
       - ./data/master:/var/lib/mysql
       - ./config/master_config.cnf:/etc/mysql/conf.d/my.cnf
       - ./setup-master.sh:/docker-entrypoint-initdb.d/setup-master.sh
+      - ./shared:/shared  # Include the shared volume for the slave as well
     ports:
       - "3306:3306"
     networks:
@@ -25,6 +26,7 @@ services:
       - ./data/slave1:/var/lib/mysql
       - ./config/slave_config1.cnf:/etc/mysql/conf.d/my.cnf
       - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
+      - ./shared:/shared  # Include the shared volume for the slave as well
     ports:
       - "3308:3306"  # Redirecting host port 3308 to container port 3306
 
@@ -43,6 +45,7 @@ services:
       - ./data/slave2:/var/lib/mysql
       - ./config/slave_config2.cnf:/etc/mysql/conf.d/my.cnf
       - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
+      - ./shared:/shared  # Include the shared volume for the slave as well
     ports:
       - "3309:3306"  # Redirecting host port 3309 to container port 3306
     depends_on:
@@ -50,6 +53,9 @@ services:
     networks:
       - mysql_network
 
+volumes:
+  shared:
+  
 networks:
   mysql_network:
     driver: bridge
