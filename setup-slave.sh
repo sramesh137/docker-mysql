@@ -16,7 +16,8 @@ mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
 # mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "CHANGE MASTER TO MASTER_HOST='$MYSQL_MASTER_HOST', MASTER_PORT=$MYSQL_MASTER_PORT, MASTER_USER='$MYSQL_REPL_USER', MASTER_PASSWORD='$MYSQL_REPL_PASSWORD', MASTER_LOG_FILE='$MYSQL_MASTER_LOG_FILE', MASTER_LOG_POS=$MYSQL_MASTER_LOG_POS;"
 
 # Print the content of the replication shared script
-cat /shared/shared_script.sh
+echo "printing the output of the replication script"
+cat /shared/master_status.sql
 
 
 # Print a message to indicate the start of the shared script execution
@@ -24,7 +25,8 @@ echo "Running shared script from setup-slave.sh"
 
 
 # Invoke the configured replication shared script
-/shared/shared_script.sh
+# /shared/shared_script.sh
+/shared/master_status.sql
 
 # Start the slave
 mysql -uroot -p$MYSQL_ROOT_PASSWORD -e "START SLAVE;"

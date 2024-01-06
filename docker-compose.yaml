@@ -52,10 +52,13 @@ services:
       - master_db
     networks:
       - mysql_network
-
 volumes:
   shared:
-  
+    driver_opts:
+      type: none
+      device: ${PWD}/shared
+      o: bind
+      permissions: "rw"
 networks:
   mysql_network:
     driver: bridge
