@@ -44,7 +44,7 @@ services:
       - ./config/slave_config2.cnf:/etc/mysql/conf.d/my.cnf
       - ./setup-slave.sh:/docker-entrypoint-initdb.d/setup-slave.sh
     ports:
-      - "3309:3306"  # Redirecting host port 3308 to container port 3306
+      - "3309:3306"  # Redirecting host port 3309 to container port 3306
     depends_on:
       - master_db
     networks:
